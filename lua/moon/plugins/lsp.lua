@@ -33,8 +33,8 @@ return {
             },
             handlers = {
                 function(server_name) -- default handler (optional)
-
                     require("lspconfig")[server_name].setup {
+                        inlay_hints = { enabled = true },
                         capabilities = capabilities
                     }
                 end,
@@ -45,9 +45,25 @@ return {
                         capabilities = capabilities,
                         settings = {
                             Lua = {
-				    runtime = { version = "Lua 5.1" },
+                                runtime = { version = "Lua 5.1" },
                                 diagnostics = {
                                     globals = { "vim", "it", "describe", "before_each", "after_each" },
+                                },
+                                hints = {
+                                    enabled = true
+                                }
+                            }
+                        }
+                    }
+                end,
+                ["gopls"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.gopls.setup {
+                        capabilities = capabilities,
+                        settings = {
+                            gopls = {
+                                inlay_hints = {
+                                    enabled = true,
                                 }
                             }
                         }
