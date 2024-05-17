@@ -13,6 +13,10 @@ return {
         "j-hui/fidget.nvim",
     },
 
+    opts = {
+        inlay_hints = true
+    },
+
     config = function()
         local cmp = require('cmp')
         local cmp_lsp = require("cmp_nvim_lsp")
@@ -30,13 +34,11 @@ return {
                 "rust_analyzer",
                 "gopls",
                 "rubocop",
+                "tsserver",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
-                    require("lspconfig")[server_name].setup {
-                        inlay_hints = { enabled = true },
-                        capabilities = capabilities
-                    }
+                    require("lspconfig")[server_name].setup {}
                 end,
 
                 ["lua_ls"] = function()
@@ -49,9 +51,6 @@ return {
                                 diagnostics = {
                                     globals = { "vim", "it", "describe", "before_each", "after_each" },
                                 },
-                                hints = {
-                                    enabled = true
-                                }
                             }
                         }
                     }
@@ -61,11 +60,6 @@ return {
                     lspconfig.gopls.setup {
                         capabilities = capabilities,
                         settings = {
-                            gopls = {
-                                inlay_hints = {
-                                    enabled = true,
-                                }
-                            }
                         }
                     }
                 end,
