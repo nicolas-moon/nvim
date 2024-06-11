@@ -8,7 +8,39 @@ return {
     },
 
     config = function()
-        require('telescope').setup({})
+        require('telescope').setup {
+            defaults = {
+                mappings = {
+                    i = {
+                        ["<C-j>"] = require('telescope.actions').move_selection_next,
+                        ["<C-k>"] = require('telescope.actions').move_selection_previous,
+                    },
+                    n = {
+                        ["<C-j>"] = require('telescope.actions').move_selection_next,
+                        ["<C-k>"] = require('telescope.actions').move_selection_previous,
+                    },
+                },
+                file_ignore_patterns = {
+                    "node_modules",
+                    "target",
+                },
+                vimgrep_arguments = {
+                    'rg',
+                    '--color=never',
+                    '--no-heading',
+                    '--with-filename',
+                    '--line-number',
+                    '--column',
+                    '--smart-case',
+                    '--hidden',
+                },
+            },
+            pickers = {
+                find_files = {
+                    hidden = true
+                }
+            }
+        }
 
         local builtin = require('telescope.builtin')
         vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
@@ -27,4 +59,3 @@ return {
         vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
     end
 }
-
