@@ -26,6 +26,8 @@ return {
             vim.lsp.protocol.make_client_capabilities(),
             cmp_lsp.default_capabilities())
 
+        local lspconfig = require('lspconfig')
+        lspconfig.sourcekit.setup {}
         require("fidget").setup({})
         require("mason").setup()
         require("mason-lspconfig").setup({
@@ -57,11 +59,27 @@ return {
                 end,
                 ["gopls"] = function()
                     local lspconfig = require("lspconfig")
-                    lspconfig.gopls.setup {
-                        capabilities = capabilities,
+                    lspconfig.gopls.setup({
                         settings = {
-                        }
-                    }
+                            gopls = {
+                                gofumpt = true,
+                                staticcheck = true,
+                                analyses = {
+                                    unusedparams = true,
+                                    unusedvariables = true,
+                                    unusedwrite = true,
+                                },
+                                hints = {
+                                    assignVariableTypes = true,
+                                    compositeLiteralFields = true,
+                                    compositeLiteralTypes = true,
+                                    constantValues = true,
+                                    parameterNames = true,
+                                    rangeVariableTypes = true,
+                                }
+                            }
+                        },
+                    })
                 end,
             }
         })

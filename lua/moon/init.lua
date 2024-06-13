@@ -23,3 +23,19 @@ autocmd('LspAttach', {
     end
 })
 
+local function autosave()
+    local bufnr = vim.api.nvim_get_current_buf()
+    vim.cmd('silent! update') -- save file silently
+end
+
+-- Create an autocommand to trigger the function after 5 minutes of inactivity
+vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+    callback = function()
+        autosave()
+    end,
+    pattern = '*', -- Apply to all file types
+    desc = "Auto-save files after 5 minutes of inactivity"
+})
+
+-- Set the CursorHold and CursorHoldI events to trigger after 5 minutes (300000 ms)
+vim.opt.updatetime = 300000
