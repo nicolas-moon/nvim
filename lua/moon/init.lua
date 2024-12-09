@@ -7,7 +7,7 @@ local moonGroup = augroup('moon', {})
 local autocmd = vim.api.nvim_create_autocmd
 
 -- set a color column at 80
-vim.opt.colorcolumn = '80'
+vim.opt.colorcolumn = '120'
 
 autocmd('LspAttach', {
     group = moonGroup,

@@ -36,7 +36,7 @@ return {
                 "rust_analyzer",
                 "gopls",
                 "rubocop",
-                "eslint",
+                "vtsls",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
