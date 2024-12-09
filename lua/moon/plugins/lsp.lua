@@ -36,7 +36,7 @@ return {
                 "rust_analyzer",
                 "gopls",
                 "rubocop",
-                "tsserver",
+                "vtsls",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -44,7 +44,6 @@ return {
                 end,
 
                 ["lua_ls"] = function()
-                    local lspconfig = require("lspconfig")
                     lspconfig.lua_ls.setup {
                         capabilities = capabilities,
                         settings = {
@@ -58,7 +57,6 @@ return {
                     }
                 end,
                 ["gopls"] = function()
-                    local lspconfig = require("lspconfig")
                     lspconfig.gopls.setup({
                         settings = {
                             gopls = {
